@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  {{package}}:
+    container_name: {{package}}
+    image: {{package}}
+    build:
+      context: .
+      args:
+        EXTRAS: "[test]"
+    tty: true
+    entrypoint: ["bash"]
+    volumes:
+      - .:/{{package}}

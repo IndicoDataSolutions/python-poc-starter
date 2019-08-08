@@ -8,6 +8,7 @@ services:
       context: .
       args:
         EXTRAS: "[test]"
+        GITHUB_ACCESS_TOKEN: ${GITHUB_ACCESS_TOKEN}
     tty: true
     entrypoint: ["bash"]
     environment:
@@ -15,3 +16,4 @@ services:
     volumes:
       - .:/{{package}}
       - ../indipoc:/indipoc
+      - ../IndicoIo-python:/IndicoIo-python

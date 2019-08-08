@@ -45,8 +45,9 @@ if __name__ == "__main__":
         "--description", help="Description for this python project", required=True
     )
 
-    args = vars(parser.parse_args())
+    args = parser.parse_args()
     args.package = args.package.lower()
     args.package = args.package.replace(" ", "")
+    args = vars(args)
     walk_directory(PROJECT_ROOT, args)
     os.remove(__file__)

@@ -1,15 +1,25 @@
+# FROM Image replaceable with other indicoio python-docker-packages
+# (includes other versions of alpine & ubuntu & ubuntu-gpu)
 FROM indicoio/alpine:3.9.3
+
+# Your Github Access Token
+ARG GITHUB_ACCESS_TOKEN
 
 LABEL author="{{author}}"
 LABEL email="{{email}}"
 
-ARG EXTRAS="[test]"
-ENV PATH=/{{package}}/bin:${PATH}
+ENV PATH=/{{package}}/bin:/indipoc/bin:${PATH}
+
+RUN apk update && \
+    install_github_dependencies indipoc
 
 COPY . /{{package}}
 WORKDIR /{{package}}
 
-RUN pip3 install --find-links=/root/.cache/pip/wheels -e .${EXTRAS} && \
+ARG INDIPOC_TAG = master
+
+RUN update_github_dependencies indipoc ${INDIPOC_TAG} && \
+    pip3 install --find-links=/root/.cache/pip/wheels -e . && \
     python3 setup.py develop --no-deps
 
 CMD ["bash"]

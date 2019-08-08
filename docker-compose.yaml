@@ -10,5 +10,8 @@ services:
         EXTRAS: "[test]"
     tty: true
     entrypoint: ["bash"]
+    environment:
+      GITHUB_ACCESS_TOKEN: ${GITHUB_ACCESS_TOKEN}
     volumes:
       - .:/{{package}}
+      - ../indipoc:/indipoc

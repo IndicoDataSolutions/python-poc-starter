@@ -11,6 +11,7 @@ LABEL email="{{email}}"
 ENV PATH=/{{package}}/bin:/indipoc/bin:${PATH}
 
 RUN apk update && \
+    apk add --no-cache zlib-dev jpeg-dev libpng-dev freetype-dev openblas openblas-dev && \
     install_github_dependencies indipoc && \
     install_github_dependencies IndicoIo-python
 
